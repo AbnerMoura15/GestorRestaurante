@@ -30,7 +30,10 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
         {children}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white border-t border-gray-200 flex z-50">
+      <nav
+        className="fixed bottom-0 left-0 right-0 max-w-lg mx-auto bg-white border-t border-gray-200 flex z-50"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
         {navItems.map(item => (
           <button
             key={item.page}
