@@ -63,11 +63,11 @@ export const defaultPlatformPresets: PlatformFeePreset[] = [
   }),
   makePreset({
     id: 'platform-99food',
-    nome: '99Food São Paulo / Taxa Zero Promocional',
+    nome: '99Food — Configuração Manual',
     canal: 'FOOD99',
     comissaoPercentual: 0,
     taxaPagamentoPercentual: 0,
     baseComissao: 'APOS_DESCONTO_LOJA',
-    observacoes: 'Preset baseado em campanha de taxa zero. Confirmar no contrato/portal da 99Food, pois pode variar por cidade, plano e período.'
+    observacoes: 'As taxas da 99Food variam por região, contrato, campanha e modalidade. Configure manualmente os percentuais e custos conforme aparecem no portal da sua loja.'
   })
 ]

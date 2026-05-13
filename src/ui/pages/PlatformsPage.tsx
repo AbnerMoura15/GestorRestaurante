@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../data/db'
 import { platformRepository } from '../../data/repositories/platformRepository'
 import type { PlatformFeePreset } from '../../domain/entities/PlatformFeePreset'
-import { formatCurrency } from '../../utils/nanoid'
+import { formatCurrencyBRL } from '../../utils/currency'
 import Modal from '../components/Modal'
 import CurrencyInput from '../components/CurrencyInput'
 
@@ -163,12 +163,12 @@ export default function PlatformsPage() {
             </div>
             <div className="bg-gray-50 rounded-lg p-2">
               <p className="text-gray-400">Mensalidade</p>
-              <p className="font-semibold">{formatCurrency(p.mensalidade)}</p>
+              <p className="font-semibold">{formatCurrencyBRL(p.mensalidade)}</p>
             </div>
             <div className="bg-gray-50 rounded-lg p-2">
               <p className="text-gray-400">Campanha</p>
               <p className={`font-semibold ${p.campanhaInteligenteAtiva ? 'text-yellow-600' : 'text-gray-400'}`}>
-                {p.campanhaInteligenteAtiva ? `${formatCurrency(p.custoCampanhaPorPedido)}/pedido` : 'Inativa'}
+                {p.campanhaInteligenteAtiva ? `${formatCurrencyBRL(p.custoCampanhaPorPedido)}/pedido` : 'Inativa'}
               </p>
             </div>
           </div>
