@@ -6,6 +6,7 @@ export const defaultProducts: Product[] = [
   {
     id: 'prod-300-simples',
     nome: 'Copo 300ml Simples',
+    categoria: 'Copos 300ml',
     tamanhoMl: 300,
     canalPadrao: 'PRESENCIAL',
     precoVendaPresencial: 12.00,
@@ -28,6 +29,7 @@ export const defaultProducts: Product[] = [
   {
     id: 'prod-500-simples',
     nome: 'Copo 500ml Simples',
+    categoria: 'Copos 500ml',
     tamanhoMl: 500,
     canalPadrao: 'PRESENCIAL',
     precoVendaPresencial: 18.00,
@@ -51,6 +53,7 @@ export const defaultProducts: Product[] = [
   {
     id: 'prod-500-nutella',
     nome: 'Copo 500ml com Nutella',
+    categoria: 'Copos premium',
     tamanhoMl: 500,
     canalPadrao: 'PRESENCIAL',
     precoVendaPresencial: 25.00,
@@ -74,6 +77,7 @@ export const defaultProducts: Product[] = [
   {
     id: 'prod-promo-2x500',
     nome: 'Promoção 2 Copos 500ml',
+    categoria: 'Promoções',
     tamanhoMl: 1000,
     canalPadrao: 'PRESENCIAL',
     precoVendaPresencial: 32.00,

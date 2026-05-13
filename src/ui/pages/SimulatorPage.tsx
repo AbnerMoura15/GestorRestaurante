@@ -3,7 +3,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { db } from '../../data/db'
 import { calculateProductCost } from '../../domain/services/costCalculator'
 import { simulateSale } from '../../domain/services/priceCalculator'
-import { formatCurrency, formatPercent } from '../../utils/nanoid'
+import { formatCurrencyBRL, formatPercent } from '../../utils/currency'
 import { defaultAppConfig, getMarginStatus, marginStatusLabel, marginStatusColor } from '../../domain/entities/AppConfig'
 import type { SalesChannel } from '../../domain/entities/Product'
 import CurrencyInput from '../components/CurrencyInput'
@@ -129,7 +129,7 @@ export default function SimulatorPage() {
           <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
             <div>
               <p className="text-sm font-medium text-gray-700">Campanha Inteligente</p>
-              <p className="text-xs text-gray-400">Custo: {formatCurrency(selectedPlatform.custoCampanhaPorPedido)}/pedido</p>
+              <p className="text-xs text-gray-400">Custo: {formatCurrencyBRL(selectedPlatform.custoCampanhaPorPedido)}/pedido</p>
             </div>
             <button
               onClick={() => setCampanhaAtiva(!campanhaAtiva)}
@@ -148,39 +148,39 @@ export default function SimulatorPage() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-gray-600">
               <span>Preço de venda</span>
-              <span>{formatCurrency(result.fees.receitaBruta)}</span>
+              <span>{formatCurrencyBRL(result.fees.receitaBruta)}</span>
             </div>
             {result.fees.descontoLoja > 0 && (
               <div className="flex justify-between text-orange-500">
                 <span>— Desconto loja</span>
-                <span>−{formatCurrency(result.fees.descontoLoja)}</span>
+                <span>−{formatCurrencyBRL(result.fees.descontoLoja)}</span>
               </div>
             )}
             <div className="flex justify-between text-gray-600">
               <span>Receita líquida</span>
-              <span>{formatCurrency(result.fees.receitaAposDescontoLoja)}</span>
+              <span>{formatCurrencyBRL(result.fees.receitaAposDescontoLoja)}</span>
             </div>
             <div className="border-t border-gray-100 pt-2">
               <div className="flex justify-between text-gray-600">
                 <span>Custo do produto</span>
-                <span className="text-red-500">−{formatCurrency(result.custoProduto)}</span>
+                <span className="text-red-500">−{formatCurrencyBRL(result.custoProduto)}</span>
               </div>
               {result.fees.comissao > 0 && (
                 <div className="flex justify-between text-gray-500 text-xs mt-1">
                   <span>Comissão plataforma</span>
-                  <span className="text-red-400">−{formatCurrency(result.fees.comissao)}</span>
+                  <span className="text-red-400">−{formatCurrencyBRL(result.fees.comissao)}</span>
                 </div>
               )}
               {result.fees.taxaPagamento > 0 && (
                 <div className="flex justify-between text-gray-500 text-xs mt-1">
                   <span>Taxa de pagamento</span>
-                  <span className="text-red-400">−{formatCurrency(result.fees.taxaPagamento)}</span>
+                  <span className="text-red-400">−{formatCurrencyBRL(result.fees.taxaPagamento)}</span>
                 </div>
               )}
               {result.fees.custoCampanha > 0 && (
                 <div className="flex justify-between text-gray-500 text-xs mt-1">
                   <span>Campanha</span>
-                  <span className="text-red-400">−{formatCurrency(result.fees.custoCampanha)}</span>
+                  <span className="text-red-400">−{formatCurrencyBRL(result.fees.custoCampanha)}</span>
                 </div>
               )}
             </div>
@@ -190,14 +190,14 @@ export default function SimulatorPage() {
             <div className="flex justify-between items-center">
               <span className="font-semibold text-gray-800">Lucro por unidade</span>
               <span className={`text-xl font-bold ${result.lucroLiquido < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                {formatCurrency(result.lucroLiquido)}
+                {formatCurrencyBRL(result.lucroLiquido)}
               </span>
             </div>
             {quantidade > 1 && (
               <div className="flex justify-between items-center mt-1">
                 <span className="text-sm text-gray-500">Lucro total ({quantidade} unid.)</span>
                 <span className={`text-base font-bold ${result.lucroTotal < 0 ? 'text-red-600' : 'text-green-600'}`}>
-                  {formatCurrency(result.lucroTotal)}
+                  {formatCurrencyBRL(result.lucroTotal)}
                 </span>
               </div>
             )}
