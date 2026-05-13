@@ -4,7 +4,7 @@ export function formatCurrencyBRL(value: number): string {
     style: 'currency',
     currency: 'BRL',
     minimumFractionDigits: 2,
-    maximumFractionDigits: 4
+    maximumFractionDigits: 2
   }).format(value)
 }
 
@@ -13,7 +13,7 @@ export function formatInputBRL(value: number): string {
   if (value === 0) return ''
   return value.toLocaleString('pt-BR', {
     minimumFractionDigits: 2,
-    maximumFractionDigits: 4
+    maximumFractionDigits: 2
   })
 }
 

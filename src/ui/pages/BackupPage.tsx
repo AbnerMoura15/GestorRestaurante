@@ -13,11 +13,17 @@ export default function BackupPage() {
   const platforms = useLiveQuery(() => db.platforms.toArray(), [])
   const config = useLiveQuery(() => db.config.get('main'), [])
   const sales = useLiveQuery(() => db.sales.toArray(), [])
+  const ingredientCategories = useLiveQuery(() => db.ingredientCategories.toArray(), [])
+  const productCategories = useLiveQuery(() => db.productCategories.toArray(), [])
 
   const [importStatus, setImportStatus] = useState<string | null>(null)
 
   const handleExportJSON = () => {
-    const data = { ingredients, products, platforms, config, sales, exportedAt: new Date().toISOString(), version: '2.0.0' }
+    const data = {
+      ingredients, products, platforms, config, sales,
+      ingredientCategories, productCategories,
+      exportedAt: new Date().toISOString(), version: '3.0.0'
+    }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a'); a.href = url
@@ -29,7 +35,9 @@ export default function BackupPage() {
     const file = e.target.files?.[0]; if (!file) return
     try {
       const data = JSON.parse(await file.text())
-      await db.transaction('rw', [db.ingredients, db.products, db.platforms, db.config, db.sales], async () => {
+      await db.transaction('rw', [db.ingredients, db.products, db.platforms, db.config, db.sales, db.ingredientCategories, db.productCategories], async () => {
+        if (data.ingredientCategories) { await db.ingredientCategories.clear(); await db.ingredientCategories.bulkAdd(data.ingredientCategories) }
+        if (data.productCategories) { await db.productCategories.clear(); await db.productCategories.bulkAdd(data.productCategories) }
         if (data.ingredients) { await db.ingredients.clear(); await db.ingredients.bulkAdd(data.ingredients) }
         if (data.products) { await db.products.clear(); await db.products.bulkAdd(data.products) }
         if (data.platforms) { await db.platforms.clear(); await db.platforms.bulkAdd(data.platforms) }
@@ -85,7 +93,7 @@ export default function BackupPage() {
           <Download size={20} className="text-brand-700" />
           <div className="text-left">
             <p className="font-semibold">Exportar JSON (backup completo)</p>
-            <p className="text-xs text-brand-600 font-normal">Insumos, produtos, plataformas e vendas ({sales?.length ?? 0} vendas)</p>
+            <p className="text-xs text-brand-600 font-normal">Insumos, produtos, categorias, plataformas e vendas ({sales?.length ?? 0} vendas)</p>
           </div>
         </button>
         <button onClick={handleExportCSV}
@@ -103,7 +111,7 @@ export default function BackupPage() {
           <Upload size={20} className="text-orange-700" />
           <div className="text-left">
             <p className="font-semibold">Importar JSON</p>
-            <p className="text-xs text-orange-600 font-normal">Substituirá todos os dados atuais (incluindo vendas)</p>
+            <p className="text-xs text-orange-600 font-normal">Substituirá todos os dados atuais (incluindo categorias e vendas)</p>
           </div>
           <input type="file" accept=".json" onChange={handleImportJSON} className="hidden" />
         </label>

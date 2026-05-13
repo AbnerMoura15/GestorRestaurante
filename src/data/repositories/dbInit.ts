@@ -3,6 +3,7 @@ import { defaultIngredients } from '../seed/defaultIngredients'
 import { defaultProducts } from '../seed/defaultProducts'
 import { defaultPlatformPresets } from '../seed/defaultPlatformPresets'
 import { defaultAppConfig } from '../../domain/entities/AppConfig'
+import { ingredientCategoryRepository, productCategoryRepository } from './categoryRepository'
 
 export async function initializeDB(): Promise<void> {
   const [ingCount, prodCount, platCount, configCount] = await Promise.all([
@@ -11,6 +12,10 @@ export async function initializeDB(): Promise<void> {
     db.platforms.count(),
     db.config.count()
   ])
+
+  // Seed default categories (idempotent — skips existing)
+  await ingredientCategoryRepository.seed()
+  await productCategoryRepository.seed()
 
   if (ingCount === 0) {
     await db.ingredients.bulkAdd(defaultIngredients)

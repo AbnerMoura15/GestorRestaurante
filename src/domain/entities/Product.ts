@@ -1,17 +1,5 @@
 export type SalesChannel = 'PRESENCIAL' | 'IFOOD_BASICO' | 'IFOOD_ENTREGA' | 'FOOD99' | 'WHATSAPP' | 'OUTRO'
 
-export type ProductCategory =
-  | 'Copos 300ml'
-  | 'Copos 500ml'
-  | 'Copos premium'
-  | 'Promoções'
-  | 'Combos'
-  | 'Outros'
-
-export const productCategories: ProductCategory[] = [
-  'Copos 300ml', 'Copos 500ml', 'Copos premium', 'Promoções', 'Combos', 'Outros'
-]
-
 export interface ProductIngredient {
   ingredientId: string
   quantidadeUsada: number
@@ -22,7 +10,7 @@ export interface ProductIngredient {
 export interface Product {
   id: string
   nome: string
-  categoria: ProductCategory
+  categoria: string
   tamanhoMl: number
   canalPadrao: SalesChannel
   precoVendaPresencial: number
