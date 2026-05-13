@@ -9,7 +9,7 @@ export const ingredientRepository = {
   },
 
   async getActive(): Promise<Ingredient[]> {
-    return db.ingredients.where('ativo').equals(1).sortBy('nome')
+    return db.ingredients.orderBy('nome').filter(i => i.ativo).toArray()
   },
 
   async getById(id: string): Promise<Ingredient | undefined> {

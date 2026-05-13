@@ -18,7 +18,7 @@ const channelLabels: Record<SalesChannel, string> = {
 }
 
 export default function SimulatorPage() {
-  const products = useLiveQuery(() => db.products.where('ativo').equals(1).sortBy('nome'), [])
+  const products = useLiveQuery(() => db.products.orderBy('nome').filter(p => p.ativo).toArray(), [])
   const ingredients = useLiveQuery(() => db.ingredients.toArray(), [])
   const platforms = useLiveQuery(() => db.platforms.toArray(), [])
 

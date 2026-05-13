@@ -8,7 +8,7 @@ export const productRepository = {
   },
 
   async getActive(): Promise<Product[]> {
-    return db.products.where('ativo').equals(1).sortBy('nome')
+    return db.products.orderBy('nome').filter(p => p.ativo).toArray()
   },
 
   async getById(id: string): Promise<Product | undefined> {
